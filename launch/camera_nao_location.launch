@@ -1,0 +1,53 @@
+<launch>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_cam" 
+  args="0 0 0 0 0 0 world nao_camera 10" />
+
+  <arg name="nao_ip" default="$(optenv NAO_IP 10.0.0.15)" />
+  <arg name="nao_port" default="$(optenv NAO_PORT 9559)" />
+
+  <node pkg="nao_driver" type="nao_camera.py" name="nao_camera" required="true" args="--pip=$(arg nao_ip) --pport=$(arg nao_port)" output="screen">
+     <param name="calibration_file_bottom" type="string" value="file://$(find nao_driver)/config/nao_bottom_640x480.yaml"/>
+     <param name="calibration_file_top" type="string" value="file://$(find nao_driver)/config/nao_top_640x480.yaml"/>
+     <param name="image_width" value="640" />
+     <param name="image_height" value="480" />
+     <param name="pixel_format" value="yuyv" />
+     <param name="camera_frame_id" value="nao_camera" />
+     <param name="io_method" value="mmap"/>
+     <param name="resolution" type="int" value="2" /> <!--QQVGA=0, QVGA=1, VGA=2 -->
+     <param name="color_space" type="int" value="13" /> <!-- 9 = YUV422, 11 = RGB, 13 = BGR -->
+     <param name="fps" type="int" value="30" />
+     <param name="camera_switch" type="int" value="1" /> <!-- 0 = top, 1 = bottom -->
+ 
+  </node>
+
+
+	<arg name="marker_size" default="2.0" />
+	<arg name="max_new_marker_error" default="0.08" />
+	<arg name="max_track_error" default="0.2" />
+	<arg name="cam_image_topic" default="/nao_camera/image_raw" />
+	<arg name="cam_info_topic" default="/nao_camera/camera_info" />	
+	<arg name="output_frame" default="/nao_camera" />
+
+	<node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" respawn="false" output="screen" args="$(arg marker_size) $(arg max_new_marker_error) $(arg max_track_error) $(arg cam_image_topic) $(arg cam_info_topic) $(arg output_frame)" />
+
+
+	<node ns="camera1" pkg="image_proc" type="image_proc" name="image_proc" />
+
+
+
+	<node pkg="tf" type="static_transform_publisher" name="mav_to_camera" output="screen" args="0 0 0 0 0 0 world CameraBottom_frame 10" />
+
+  	<node pkg="rviz" type="rviz" name="rviz" />
+
+
+  <node pkg="coreader_story" name="ar_tags_location_detect" type="ar_tags_location_detect.py" output="screen">
+     <rosparam>
+        tag_ids: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 2222, 4444, 62222, 63333, 38, 39, 40]
+     </rosparam>
+  </node>
+
+  <node name="read_event" pkg="coreader_story" type="read_lines_location_event.py" >
+     <param name="story_text_en" textfile="$(find coreader_story)/nodes/chick_story_en.txt" />
+  </node>
+
+</launch>

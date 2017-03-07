@@ -1,0 +1,7 @@
+[0, 1]		2=WordNum 1=LineNum 2=L1 2=B1 1=NextLine \\rspd=50\\ Fox \\pau=500\\ story \\pau=500\\
+[2, 3]		3=WordNum 1=LineNum 3=L1 2=B1 1=NextLine \\rspd=50\\ A \\pau=600\\ red=RTag brown=WTag \\pau=600\\ Fox \\pau=500\\
+[4, 5] 		3=WordNum 2=LineNum 2=L1 2=B1 5=L2 5=B2 1=NextLine \\rspd=50\\ in \\pau=500\\ blue=RTag green=WTag \\pau=500\\ socks \\pau=500\\
+[6, 7] 		5=WordNum 3=LineNum 4=L1 4=B1 3=L2 3=B2 2=L3 2=B3 1=NextLine \\rspd=50\\ doing \\pau=500\\ tricks \\pau=500\\ with \\pau=500\\ 2=NextLine \\rspd=50\\ orange \\pau=500\\ clocks=RTag rocks=WTag \\pau=500\\ 2=NextLine \\rspd=50\\ hell \\pau=500\\ no \\pau=500\\ 
+[8, 9] 		2=WordNum 1=LineNum 2=L1 2=B1 1=NextLine \\rspd=50\\ The \\pau=500\\ end. \\pau=500\\
+[10, 11] 	5=WordNum 1=LineNum 5=L1 5=B1 1=NextLine \\rspd=50\\ The \\pau=500\\ cat \\pau=500\\ in \\pau=500\\ the \\pau=500\\ hat \\pau=500\\
+[12, 13] 	6=WordNum 4=LineNum 5=L1 5=B1 6=L2 6=B2 6=L3 6=B3 6=L4 6=B4 1=NextLine \\rspd=50\\ The \\pau=500\\ sun=RTag moon=WTag \\pau=500\\ did \\pau=500\\ not \\pau=500\\ shine. =NextLine \\pau=500\\ It \\pau=500\\ was \\pau=500\\ too \\pau=500\\ wet \\pau=500\\ to \\pau=500\\ play=RTag sleep=WTag \\pau=500\\ =NextLine So \\pau=500\\ we \\pau=500\\ sat \\pau=500\\ in \\pau=500\\ the \\pau=500\\ house=RTag car=WTag \\pau=500\\ =NextLine All \\pau=500\\ the \\pau=500\\ cold, \\pau=500\\ cold, \\pau=500\\ wet \\pau=500\\ day. =NextLine
