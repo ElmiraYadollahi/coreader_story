@@ -19,7 +19,6 @@ class TRANSFORMATION:
 
 	def __init__(self,  mProxy):
 		
-		self.newP = Pose()
 		self.matAB = [0, 0, 1, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 1]
 		self.space  = motion.FRAME_ROBOT
 		self.useSensorValues  = True
@@ -45,6 +44,19 @@ class TRANSFORMATION:
 		return matAC
 
 
+	def transformPoint(self, point, name):
+		"""
+
+		"""
+
+		tranAC = self.transformMatrix(name)
+
+		oldPoint = np.matrix(point)
+		newPoint = np.dot(tranAC, oldPoint)
+
+		return newPoint
+
+
 	def lineFunc(self, PA, PB, t):
 		""" line function created using the position of tags
 			PA: point A
@@ -52,12 +64,47 @@ class TRANSFORMATION:
 			t: variable to find points on the line function
 
 		"""
-
-		self.newP.position.x = PA.position.x + (PB.position.x - PA.position.x)* t
-		self.newP.position.y = PA.position.y + (PB.position.y - PA.position.y)* t
-		self.newP.position.z = PA.position.z + (PB.position.z - PA.position.z)* t
+		newP = Pose()
+		newP.position.x = PA.position.x + (PB.position.x - PA.position.x)* t
+		newP.position.y = PA.position.y + (PB.position.y - PA.position.y)* t
+		newP.position.z = PA.position.z + (PB.position.z - PA.position.z)* t
 		
-		return self.newP
+		return newP
+
+
+	def calculateEachWordPosition(self, PA, PB, effector, trajComplete, mainPoints, LiWoCount):
+		"""
+
+		"""
+		trajComplete2 = []
+		for i in range(len(LiWoCount)):
+			mainPoints = []
+			for j in range(LiWoCount[i]):
+				""" Based on the number of words, calcultae the positions for the robot to point at"""
+				const = (j + 1) / float (1 + LiWoCount[i]) 
+				newP = self.lineFunc(PA, PB, const)
+				midP = [newP.position.x, newP.position.y, newP.position.z, newP.orientation.x, newP.orientation.y, newP.orientation.z]
+				mainPoints.append(midP)
+
+			trajComplete = []
+			trajComplete = self.calculateTrajectory(effector, mainPoints, LiWoCount[i], i+1)
+			print "trajComplete"
+			print LiWoCount[i]
+
+			print "len trajComplete"
+			print len(trajComplete)
+			trajComplete2.append([trajComplete])
+
+		return trajComplete2
+
+
+
+
+
+ 
+
+
+
 
 
 	def calculateTrajectory(self, effector, mainPoints, wordCount, lineNum=1):

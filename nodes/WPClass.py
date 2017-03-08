@@ -61,7 +61,7 @@ class WORDPROCESSING:
 
 		#story_loaded = rospy.get_param('~story_text_en')
 		#lines_array = story_loaded.splitlines()
-		print lines_array
+		#print lines_array
 
 		for line in lines_array:
 			found = re.search(tag, line)
@@ -85,8 +85,8 @@ class WORDPROCESSING:
 		tag = "=NextLine"
 		tagWithWord = "\w+(?=" + tag + ")"
 		self.lineMatrix = re.split( tagWithWord + tag, self.selectedStory)
-		print "line matrix"
-		print self.lineMatrix
+		#print "line matrix"
+		#print self.lineMatrix
 		#wordCountString = foundTag.group(0)
 		#wordCountString = self.removeTheTag(tag, wordCountString)
 
@@ -103,8 +103,8 @@ class WORDPROCESSING:
 
 		"""
 
-		print "in tag"
-		print self.selectedStory
+		#print "in tag"
+		#print self.selectedStory
 		tag = INTag
 		tagWithWord = "\w+(?=" + tag + ")"
 		foundTag = re.search(tagWithWord + tag, self.selectedStory)
@@ -132,8 +132,8 @@ class WORDPROCESSING:
 				if re.search(inTag, self.lineMatrix[i]) != None:
 					self.lineMatrix[i] = self.removeTheWordWithTag(inTag, self.lineMatrix[i])
 
-		print "line matrix clear"
-		print self.lineMatrix
+		#print "line matrix clear"
+		#print self.lineMatrix
 
 
 	def removeTheTag(self, tag, storyContent):
@@ -168,11 +168,11 @@ class WORDPROCESSING:
 		"""
 
 		"""
-		print "Flag"
-		print correctFlag
+		#print "Flag"
+		#print correctFlag
 
-		print "line matrix before"
-		print self.lineMatrix
+		#print "line matrix before"
+		#print self.lineMatrix
 
 		eachLine = self.lineMatrix[line]
 
@@ -183,6 +183,7 @@ class WORDPROCESSING:
 			eachLine = self.removeTheWordWithTag(tag, eachLine)
 			print "I'm in True"
 
+
 		elif correctFlag == False:
 			tag = "=WTag"
 			eachLine = self.removeTheTag(tag, eachLine)
@@ -190,10 +191,27 @@ class WORDPROCESSING:
 			eachLine = self.removeTheWordWithTag(tag, eachLine)
 			print "I'm in False"
 
+
+		elif correctFlag == "Partial Correction":
+			
+			if lineWithMistake == line:
+				tag = "=WTag"
+				eachLine = self.removeTheTag(tag, eachLine)
+				tag = "=RTag"
+				eachLine = self.removeTheWordWithTag(tag, eachLine)
+
+			else:
+				tag = "=RTag"
+				eachLine = self.removeTheTag(tag, eachLine)
+				tag = "=WTag"
+				eachLine = self.removeTheWordWithTag(tag, eachLine)
+			
+			print "I'm in Partial correction"
+
 		#print "read line"
 		#print line
-		print "line matrix after"
-		print eachLine
+		#print "line matrix after"
+		#print eachLine
 		self.sayFromFile(self.story, eachLine, 'ascii')
 
 
@@ -214,8 +232,8 @@ class WORDPROCESSING:
 			tag = "=RTag"
 			self.selectedStory = self.removeTheWordWithTag(tag, self.selectedStory)
 		
-		print "line story"
-		print self.selectedStory
+		#print "line story"
+		#print self.selectedStory
 
 		self.sayFromFile(self.story, self.selectedStory, 'ascii')
 

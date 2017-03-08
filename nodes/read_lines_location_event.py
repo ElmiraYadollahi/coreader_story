@@ -156,7 +156,10 @@ global trajComplete
 trajComplete = []
 global correctPermission
 correctPermission = False
-
+global cardPosition
+cardPosition = 0
+global reactionPermission 
+reactionPermission = False
 
 class MOTION_ANIMATION_SELECTION:
 	def __init__(self):
@@ -284,12 +287,39 @@ class MOTION_ANIMATION_SELECTION:
 			reactToTheMistake(emotion, animations.happy3_pose, wordsBefore, wordsAfter, sleepTime)
 
 
+def cardPointedAt(msg):
+	"""
+
+	"""
+	global cardPosition
+	cardPosition += 1
+	print "cardPosition"
+	print cardPosition
+
+	if cardPosition == 10:
+
+		cameraName = 'CameraBottom'
+		changeCoordinate = TRANSFORMATION(motionProxy)
+		#pointedWord = Pose()
+		#pointedWord.position = msg.position
+		PW = []
+		PW.append([msg.position.x])
+		PW.append([msg.position.y])
+		PW.append([msg.position.z])
+		PW.append([1])
+
+		P1 = changeCoordinate.transformPoint(PW, cameraName)
+		print "P1"
+		print P1
+
+
+
 def getTagLocations(msg, wordProc):
 	
 	global trajComplete
 	#trajComplete = [1]
 
-	changeCoordinate = TRANSFORMATION( motionProxy)
+	changeCoordinate = TRANSFORMATION(motionProxy)
 	global moveHand
 	moveHand += 1
 	cameraName = 'CameraBottom'
@@ -317,29 +347,32 @@ def getTagLocations(msg, wordProc):
 		P2.append([msg.poses[1].position.z])
 		P2.append([1])
 
-		pointsAB = []
-		pointsAB.append(P1)
-		pointsAB.append(P2)
+		
+		#pointsAB.append(P1)
+		#pointsAB.append(P2)
 
 		""" Transformation Matrix"""
-		tranAC = changeCoordinate.transformMatrix(cameraName)
+		#tranAC = changeCoordinate.transformMatrix(cameraName)
+		newP1 = changeCoordinate.transformPoint(P1, cameraName)
+		newP2 = changeCoordinate.transformPoint(P2, cameraName)
 
-		oldPoint = np.matrix(pointsAB[0])
-		newPoint1 = np.dot(tranAC, oldPoint) 
+		#oldPoint = np.matrix(pointsAB[0])
+		#newPoint1 = np.dot(tranAC, oldPoint) 
 
-		oldPoint = np.matrix(pointsAB[1])
-		newPoint2 = np.dot(tranAC, oldPoint)
+		#oldPoint = np.matrix(pointsAB[1])
+		#newPoint2 = np.dot(tranAC, oldPoint)
 
 		""" to make sure the robot's hand move from left to write
 			start from the tag located in the left toward the one in the right
 			compare their y value
 		"""
-		if newPoint1[1] >= newPoint2[1]:
-			pointsAB[0] = newPoint1
-			pointsAB[1] = newPoint2
+		pointsAB = []
+		if newP1[1] >= newP2[1]:
+			pointsAB.append(newP1)
+			pointsAB.append(newP2)
 		else:
-			pointsAB[0] = newPoint2
-			pointsAB[1] = newPoint1
+			pointsAB.append(newP2)
+			pointsAB.append(newP1)
 
 		calculateWhereToPointAt(pointsAB, effector, space, wordProc)
 
@@ -380,24 +413,9 @@ def calculateWhereToPointAt( pointsAB, effector, frame, wordProc):
 
 	trajComplete2 = []
 
-	for i in range(len(LiWoCount)):
-		mainPoints = []
-		for j in range(LiWoCount[i]):
-			""" Based on the number of words, calcultae the positions for the robot to point at"""
-			const = (j + 1) / float (1 + LiWoCount[i]) 
-			newP = changeCoordinate.lineFunc(PA, PB, const)
-			midP = [newP.position.x, newP.position.y, newP.position.z, newP.orientation.x, newP.orientation.y, newP.orientation.z]
-			mainPoints.append(midP)
 
-		trajComplete = []
-		trajComplete = changeCoordinate.calculateTrajectory(effector, mainPoints, LiWoCount[i], i+1)
-		print "trajComplete"
-		print LiWoCount[i]
-
-		print "len trajComplete"
-		print len(trajComplete)
-		trajComplete2.append([trajComplete])
 			
+	trajComplete2 = changeCoordinate.calculateEachWordPosition(PA, PB, effector, trajComplete, mainPoints, LiWoCount)
 
 	print "len trajComplete2"
 	print len(trajComplete2)
@@ -425,11 +443,13 @@ def calculateWhereToPointAt( pointsAB, effector, frame, wordProc):
 
 def readAndMoveInstruction( cameraName, handMovePermission, ARTag):
 
+	global reactionPermission
 	wordProc = WORDPROCESSING(story, ARTag)
 	motionProxy.setBreathEnabled('Arms', False)
 	#motionProxy.setBreathEnabled('Head', False)
 	#wordProc.readTheTaggedStory(selectedStory, correctPermission)
 	if handMovePermission == True:
+		reactionPermission = False
 
 
 		INTag = "=WordNum"
@@ -457,6 +477,10 @@ def readAndMoveInstruction( cameraName, handMovePermission, ARTag):
 
 		rospy.Subscriber("target_pose", PoseArray, getTagLocations, wordProc)
 
+		#motionProxy.setBreathEnabled('Arms', True)
+
+
+
 
 def tag_detection(msg):
 	"""
@@ -466,6 +490,8 @@ def tag_detection(msg):
 	global wordCount
 	global moveHand
 	global correctPermission
+	global reactionPermission
+	animationSelection = MOTION_ANIMATION_SELECTION()
 	# initializing classes
 	
 	#global selectedStory
@@ -537,6 +563,7 @@ def tag_detection(msg):
 		correctPermission = False
 		handMovePermission = True
 		readAndMoveInstruction(cameraName, handMovePermission, ARTag)
+		reactionPermission = True
 		# story.say(selectedStory)
 		pairs_dict[msg.data] = "Waiting for Red-card"
 
@@ -547,12 +574,13 @@ def tag_detection(msg):
 		
 		#motionProxy.setBreathEnabled('Arms', False)
 		#motionProxy.setBreathEnabled('Head', False)
-		sadmotionProxySelection()
-		moveHand = 0
-		print "Correcting Mode added"
-		correctPermission = True
-		handMovePermission = True
-		readAndMoveInstruction(cameraName, handMovePermission, ARTag)
+		if reactionPermission == True:
+			animationSelection.reactionToREDCard()
+			moveHand = 0
+			print "Correcting Mode added"
+			correctPermission = True
+			handMovePermission = True
+			readAndMoveInstruction(cameraName, handMovePermission, ARTag)
 		#wordProc.readTheTaggedStory(selectedStory, True)
 		#pairs_dict[msg.data] = True
 		pairs_dict[msg.data] = "Waiting for Green-card"
@@ -564,7 +592,8 @@ def tag_detection(msg):
 		print "Happy Mode added"
 		#motionProxy.setBreathEnabled('Arms', False)
 		#motionProxy.setBreathEnabled('Head', False)
-		happymotionProxySelection()
+		if reactionPermission == True:
+			animationSelection.reactionToGREENCard()
 		#story.say("\\rspd=70\\ Lets go to the next page \\pau=500\\ ")
 	
 
@@ -615,6 +644,8 @@ def tag_detection(msg):
 
 
 def card_detection(msg, tag):
+	global cardPosition
+
 	red_card = "40"
 	green_card = "39"
 	yellow_card = "38"
@@ -651,129 +682,11 @@ def card_detection(msg, tag):
 			#red_counter = 0
 			pairs_dict[tag] = "Happy Mode"
 
+	cardPosition = 0
+
+	rospy.Subscriber('card_pose', Pose, cardPointedAt)
+
 			
-
-def sadmotionProxySelection():
-	""" Select a motionProxy from the available motionProxys after receiving 
-
-	"""
-	
-	motionProxy.setExternalCollisionProtectionEnabled("All", True)
-	motionProxyNum = random.randint(1,5)
-	#motionProxyNum = 3
-
-	if motionProxyNum == 6:
-		wordsBefore = "\\rspd=90\\ Oh Really???"
-		sleepTime = 3
-		wordsAfter = "\\rspd=90\\wait!! \\pau=500\\ I'll try again"
-		emotion = "sad"
-		reactToTheMistake(emotion, animations.embarassed_seated_pose, wordsBefore, wordsAfter, sleepTime)
-
-	if motionProxyNum == 2:
-		wordsBefore = "\\rspd=60\\ Aaahhh!! \\pau=600\\ \\rspd=90\\ I didn't know!!"		
-		sleepTime = 2
-		wordsAfter = "\\rspd=80\\ let me try again"
-		emotion = "surprise"
-		reactToTheMistake(emotion, animations.scratchHead_seated_pose, wordsBefore, wordsAfter, sleepTime, 0.8)
-
-	if motionProxyNum == 7:
-		wordsBefore = "\\rspd=80\\ Oh!! sorry!!"		
-		sleepTime = 1
-		wordsAfter = "\\rspd=90\\ I will read it again"
-		emotion = "sad"
-		reactToTheMistake(emotion, animations.disappointed_seated_pose, wordsBefore, wordsAfter, sleepTime, 0.8)
-
-	if motionProxyNum == 4:
-		wordsBefore = "\\rspd=70\\ Oh!! sorry!!"		
-		sleepTime = 2
-		wordsAfter = "\\rspd=80\\ I will read it again"
-		emotion = "sad"
-		reactToTheMistake(emotion, animations.pensive_seated_pose, wordsBefore, wordsAfter, sleepTime, 0.9)
-
-	if motionProxyNum == 5:
-		wordsBefore = "\\rspd=70\\ hmm!!"		
-		sleepTime = 1
-		wordsAfter = "\\rspd=80\\ I need to read it again"
-		emotion = "sad"
-		reactToTheMistake(emotion, animations.thinking6_seated_pose, wordsBefore, wordsAfter, sleepTime, 0.8)
-
-	if motionProxyNum == 1:
-		wordsBefore = "\\rspd=80\\ oh  \\pau=700\\ \\rspd=60\\  really?!!"		
-		sleepTime = 2
-		wordsAfter = " \\rspd=80\\ \\pau=200\\ let me read it again"
-		emotion = "surprise"
-		reactToTheMistake(emotion, animations.hesitation2_seated_pose, wordsBefore, wordsAfter, sleepTime, 0.8)
-
-	if motionProxyNum == 3:
-		wordsBefore = "\\rspd=60\\ Oh!!! \\rspd=80\\ \\pau=700\\ I was wrong"		
-		sleepTime = 2
-		wordsAfter = "\\rspd=90\\ I will try again"
-		emotion = "sad"
-		reactToTheMistake(emotion, animations.thinking5_seated_pose, wordsBefore, wordsAfter, sleepTime, 0.8)
-
-
-def happymotionProxySelection():
-	""" Select a motionProxy from the available motionProxys after receiving the green card 
-
-	"""
-	
-	motionProxy.setExternalCollisionProtectionEnabled("All", True)
-	motionProxyNum = random.randint(1,5)
-	#motionProxyNum = 4
-	emotion = "happy"
-
-	if motionProxyNum == 1:
-		pitch_angle = -0.9
-		LookAtTheBook(pitch_angle)
-		wordsBefore = "\\rspd=80\\ Yeaaah!!!"
-		sleepTime = 3
-		wordsAfter = "\\rspd=70\\ Thank you"
-		reactToTheMistake(emotion, animations.winner_seated_pose, wordsBefore, wordsAfter, sleepTime, 0.8)
-
-	if motionProxyNum == 2:
-		pitch_angle = -0.9
-		LookAtTheBook(pitch_angle)
-		wordsBefore = "\\rspd=60\\ Yeaaah!!!"		
-		sleepTime = 2
-		wordsAfter = "\\rspd=80\\ Thank you"
-		reactToTheMistake(emotion, animations.winner2_seated_pose, wordsBefore, wordsAfter, sleepTime, 1.0)
-
-	if motionProxyNum == 3:
-		pitch_angle = -0.9
-		LookAtTheBook(pitch_angle)
-		wordsBefore = "\\rspd=80\\ Yeaaah!!!"		
-		sleepTime = 2
-		wordsAfter = "\\rspd=80\\ I made it "
-		reactToTheMistake2(animations.relieved_seated_pose, wordsBefore, wordsAfter, sleepTime, 0.8)
-
-	if motionProxyNum == 4:
-		pitch_angle = -0.9
-		LookAtTheBook(pitch_angle)
-		wordsBefore = "\\rspd=80\\ Yeaaah!!!"		
-		sleepTime = 2
-		wordsAfter = "\\rspd=80\\ "
-		reactToTheMistake(emotion, animations.proud_seated_pose, wordsBefore, wordsAfter, sleepTime, 0.9)
-
-	if motionProxyNum == 5:
-		wordsBefore = "\\rspd=80\\ Yeaaah!!!"		
-		sleepTime = 3
-		wordsAfter = "\\rspd=80\\ "
-		reactToTheMistake(emotion, animations.happy_seated_pose, wordsBefore, wordsAfter, sleepTime, 0.8)
-
-	if motionProxyNum == 6:
-		wordsBefore = "\\rspd=70\\ Yeaaah!!!"		
-		sleepTime = 2
-		wordsAfter = "\\rspd=70\\ "
-		reactToTheMistake(emotion, animations.happy2_seated_pose, wordsBefore, wordsAfter, sleepTime, 0.8)
-		pitch_angle = 0.5
-		LookAtTheBook(pitch_angle)
-
-	if motionProxyNum == 7:
-		wordsBefore = "\\rspd=70\\ Yeaaah!!!"		
-		sleepTime = 2
-		wordsAfter = "\\rspd=80\\ "
-		reactToTheMistake(emotion, animations.happy3_pose, wordsBefore, wordsAfter, sleepTime)
-
 
 
 def reactToTheMistake( emotion, pose, wordsBefore, wordsAfter, pause, factorSpeed = 1.0):
@@ -781,6 +694,7 @@ def reactToTheMistake( emotion, pose, wordsBefore, wordsAfter, pause, factorSpee
 		The motionProxy is a physical movement and certain words which shows robot's remorse
 
 	"""
+	motionProxy.setBreathEnabled('Arms', False)
 
 	emotionReaction = EYEEMOTIONS(proxy)
 
@@ -809,6 +723,8 @@ def reactToTheMistake2( pose, wordsBefore, wordsAfter, pause, factorSpeed = 1.0)
 		The motionProxy is a physical movement and certain words which shows robot's remorse
 
 	"""
+	motionProxy.setBreathEnabled('Arms', False)
+
 	emotionReaction = EYEEMOTIONS(proxy)
 
 	times = changeSpeed(pose.times, factorSpeed)
@@ -878,7 +794,7 @@ def faceTrackingEnded():
 	#motionProxy.rest()
 
 
-def LookAtTheBook(pitch_angle):
+def LookAtTheBook(pitch_angle, yaw_angle=0):
 	""" Move the robot's head to look at the camera
 
 	"""
@@ -887,7 +803,7 @@ def LookAtTheBook(pitch_angle):
 
 	# Example showing how to set angles, using a fraction of max speed
 	names  = ["HeadYaw", "HeadPitch"]
-	angles  = [0, pitch_angle]
+	angles  = [yaw_angle, pitch_angle]
 	fractionMaxSpeed  = 0.05
 	motionProxy.setAngles(names, angles, fractionMaxSpeed)
 
@@ -915,14 +831,6 @@ def IntroduceNao():
 	#motionProxy.rest()
 
 
-	'''if msg.data in story_dict:
-		storyNum = story_dict[msg.data]
-		print storyNum'''
-
-	'''if msg.data == '[0, 1]' or msg.data == '[1, 0]':
-		if pairs_dict['[0, 1]'] == False:
-			print "test         [0, 1]"
-			pairs_dict['[0, 1]'] = True'''
 	story.setLanguage('English')
 	#story.say("\\rspd=90\\ Hello \\pau=500\\ My name is nao \\pau=500\\ I really like reading short stories")
 	#story.say("\\rspd=90\\ Do you want to listen to them?")
@@ -934,23 +842,6 @@ def IntroduceNao():
 	LookAtTheBook(pitch_angle)
 	time.sleep(2)
 
-
-
-
-
-def tagState(msg):
-	global counter
-	global tag_pairs
-	global poses 
-	if tag_pairs != msg.data:
-		moveHand = 0
-		tag_pairs = msg.data
-		poses = []
-	print tag_pairs
-	#print tag_pairs
-
-	
-			
 
 
 def main():
@@ -1014,7 +905,7 @@ def main():
 	
 
 	rospy.Subscriber('tag_id_state', String, tag_detection)
-	#rospy.Subscriber('card_pose', Pose, newfunc)
+	
 	
 	
 	try:

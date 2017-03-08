@@ -136,7 +136,7 @@ class EYEEMOTIONS:
 		namesleft = [ "FaceLed6", "FaceLed7", "ChestLeds"]
 
 		self.proxy.createGroup("happyup",namesup)
-		self.self.proxy.createGroup("happydown",namesdown)
+		self.proxy.createGroup("happydown",namesdown)
 		self.proxy.createGroup("happyright",namesright)
 		self.proxy.createGroup("happyleft",namesleft)
 
