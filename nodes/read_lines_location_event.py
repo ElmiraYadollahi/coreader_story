@@ -66,7 +66,26 @@ pairs_dict = {	'[0, 1]' : False,
 				'[6, 7]' : False,
 				'[8, 9]' : False,
 				'[10, 11]' : False,
-				'[12, 13]' : False
+				'[12, 13]' : False,
+				'[14, 15]' : False,
+				'[16, 17]' : False,
+				'[18, 19]' : False,
+				'[20, 21]' : False,
+				'[250, 251]' : False,
+				'[252, 253]' : False,
+				'[254, 255]' : False,
+				'[256, 257]' : False,
+				'[258, 259]' : False,
+				'[260, 261]' : False,
+				'[262, 263]' : False,
+				'[264, 265]' : False,
+				'[266, 267]' : False,
+				'[268, 269]' : False,
+				'[270, 271]' : False,
+				'[272, 273]' : False,
+				'[274, 275]' : False,
+				'[276, 277]' : False,
+				'[278, 279]' : False
 			 }
 
 
@@ -482,7 +501,7 @@ def readAndMoveInstruction( cameraName, handMovePermission, ARTag):
 
 
 
-def tag_detection(msg):
+def tagDetection(msg):
 	"""
 
 	"""
@@ -507,7 +526,7 @@ def tag_detection(msg):
 	#wordCount = wordProc.storySelection(tag)
 	#rospy.Subscriber("target_pose", PoseArray, getTagLocations, cameraName)
 
-	pitch_angle = 0.3
+	pitch_angle = 0.2
 	global counter
 	if counter == 0:
 		LookAtTheBook(pitch_angle)
@@ -553,7 +572,7 @@ def tag_detection(msg):
 
 
 
-	rospy.Subscriber('card_id_state', String, card_detection, msg.data)
+	rospy.Subscriber('card_id_state', String, cardDetection, msg.data)
 	print pairs_dict[msg.data]
 
 
@@ -643,7 +662,7 @@ def tag_detection(msg):
 
 
 
-def card_detection(msg, tag):
+def cardDetection(msg, tag):
 	global cardPosition
 
 	red_card = "40"
@@ -838,8 +857,8 @@ def IntroduceNao():
 	time.sleep(1)
 	#story.say("\\rspd=90\\ If you want to read with me, please bring the book")
 	story.say("\\rspd=90\\ Hello")
-	pitch_angle = 0.1
-	LookAtTheBook(pitch_angle)
+	#pitch_angle = 0.1
+	#LookAtTheBook(pitch_angle)
 	time.sleep(2)
 
 
@@ -904,7 +923,7 @@ def main():
 
 	
 
-	rospy.Subscriber('tag_id_state', String, tag_detection)
+	rospy.Subscriber('tag_id_state', String, tagDetection)
 	
 	
 	

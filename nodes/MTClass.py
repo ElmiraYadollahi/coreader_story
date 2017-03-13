@@ -23,6 +23,7 @@ class TRANSFORMATION:
 		self.space  = motion.FRAME_ROBOT
 		self.useSensorValues  = True
 		self.motionProxy = mProxy
+		self.pointsMatrix = []
 		#self.trajcomplete = trajcompl
 
 	def transformMatrix(self, name):
@@ -86,8 +87,14 @@ class TRANSFORMATION:
 				midP = [newP.position.x, newP.position.y, newP.position.z, newP.orientation.x, newP.orientation.y, newP.orientation.z]
 				mainPoints.append(midP)
 
+			self.pointsMatrix.append(mainPoints)
+			print "mainPointsMatrix"
+			print self.pointsMatrix
+
 			trajComplete = []
 			trajComplete = self.calculateTrajectory(effector, mainPoints, LiWoCount[i], i+1)
+
+			
 			print "trajComplete"
 			print LiWoCount[i]
 
@@ -95,9 +102,25 @@ class TRANSFORMATION:
 			print len(trajComplete)
 			trajComplete2.append([trajComplete])
 
+
 		return trajComplete2
 
 
+	def calculateWordBoxes(locCardPoint):
+		"""
+
+		"""
+		locWord = []
+		for i in range(len(self.pointsMatrix)):
+			for j in range(self.pointsMatrixt[i]):
+				if (locCardPoint.position.x < self.pointsMatrixt[i][1]+ dx) and (locCardPoint.position.x > self.pointsMatrixt[i][1]-dx):
+					if (locCardPoint.position.y < self.pointsMatrixt[i][2]+ dx) and (locCardPoint.position.y > self.pointsMatrixt[i][2]-dx):
+						locWord = [i, j]
+						print "locatedWord"
+						print locWord
+
+
+		return locatedWord
 
 
 

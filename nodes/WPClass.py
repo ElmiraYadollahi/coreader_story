@@ -56,7 +56,10 @@ class WORDPROCESSING:
 
 		
 		""" creates a array containing the line related to detected tags """
-		with open('chick_story_en.txt') as f:
+		#with open('chick_story_en.txt') as f:
+			#lines_array = f.read().splitlines()
+
+		with open('all_stories_en.txt') as f:
 			lines_array = f.read().splitlines()
 
 		#story_loaded = rospy.get_param('~story_text_en')

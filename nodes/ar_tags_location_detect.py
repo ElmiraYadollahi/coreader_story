@@ -10,7 +10,12 @@ import numpy as np
 
 
 tag_states = { 0, 1, 2 , 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 
-				17, 18, 19, 20, 21, 22, 23, 2222, 4444}
+				17, 18, 19, 20, 21, 22, 23, 
+				250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 
+				260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 
+				270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 
+				280,
+				2222, 4444}
 card_tag_states = { 38, 39, 40}
 tag_pairs = [	[0, 1], 
 				[2, 3], [4, 5], 
@@ -35,7 +40,21 @@ pairs_dict = {	'[0, 1]' : False,
 				'[16, 17]' : False,
 				'[18, 19]' : False,
 				'[20, 21]' : False,
-				'[22, 23]' : False,
+				'[250, 251]' : False,
+				'[252, 253]' : False,
+				'[254, 255]' : False,
+				'[256, 257]' : False,
+				'[258, 259]' : False,
+				'[260, 261]' : False,
+				'[262, 263]' : False,
+				'[264, 265]' : False,
+				'[266, 267]' : False,
+				'[268, 269]' : False,
+				'[270, 271]' : False,
+				'[272, 273]' : False,
+				'[274, 275]' : False,
+				'[276, 277]' : False,
+				'[278, 279]' : False,
 			 }
 
 global avail_tags
@@ -97,8 +116,11 @@ class TagsCOG():
 
 			#calculate_distance(tag.pose.pose.position.x, tag.pose.pose.position.y)
 			if tag.id in tag_states:
-				avail_tags.append(tag.id)
+				if tag.id not in avail_tags:
+					avail_tags.append(tag.id)
+					print avail_tags
 				#tag_cog_array.poses.append(middle_pose)
+
 
 
 				if tag.id not in avail_pair:
