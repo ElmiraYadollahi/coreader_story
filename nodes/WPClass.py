@@ -45,7 +45,11 @@ class WORDPROCESSING:
 
 		self.tag = "=WordNum"
 		self.selectedStory = self.storySelection(ARTag)
+		print "self.selectedStory"
+		print self.selectedStory
 		self.lineMatrix = self.getTheLineMatrix()
+		print "self.lineMatrix"
+		print self.lineMatrix
 		self.LineWordCount = []
 		self.story = stor
 
@@ -59,11 +63,11 @@ class WORDPROCESSING:
 		#with open('chick_story_en.txt') as f:
 			#lines_array = f.read().splitlines()
 
-		with open('all_stories_en.txt') as f:
-			lines_array = f.read().splitlines()
+		#with open('all_stories_en.txt') as f:
+			#lines_array = f.read().splitlines()
 
-		#story_loaded = rospy.get_param('~story_text_en')
-		#lines_array = story_loaded.splitlines()
+		story_loaded = rospy.get_param('~story_text_en')
+		lines_array = story_loaded.splitlines()
 		#print lines_array
 
 		for line in lines_array:
@@ -98,8 +102,9 @@ class WORDPROCESSING:
 
 		#print "get the word count"
 		#print self.selectedStory
-
+		return self.lineMatrix
 		#return wordCount
+
 
 	def getTheInstructionTagData(self, INTag):
 		"""
@@ -114,9 +119,25 @@ class WORDPROCESSING:
 
 		instructionString = foundTag.group(0)
 		instructionString = self.removeTheTag(tag, instructionString)
-
-		instruct = int(instructionString)
+		if INTag == "=S1" or INTag == "=S2" or INTag == "=S3" or INTag == "=S4" or INTag == "=S5":
+			foundNP = re.search("N", instructionString)
+			if foundNP == None:
+				foundNP = re.search("P", instructionString)
+				NPString = foundNP.group(0)
+				NPString = self.removeTheTag("P", instructionString)
+				instruct = int(NPString)
+			else:
+				NPString = foundNP.group(0)
+				print NPString
+				NPString = self.removeTheTag("N", instructionString)
+				instruct = -int(NPString)
+				print instruct
+			
+		else:
+			instruct = int(instructionString)
 		self.selectedStory = self.removeTheWordWithTag(tag, self.selectedStory)
+
+
 
 		return instruct
 
@@ -167,7 +188,7 @@ class WORDPROCESSING:
 
 		return storyContent
 
-	def readFromMatrixLine(self, correctFlag, line):
+	def readFromMatrixLine(self, correctFlag, line, REDCardAllert):
 		"""
 
 		"""
@@ -178,6 +199,7 @@ class WORDPROCESSING:
 		#print self.lineMatrix
 
 		eachLine = self.lineMatrix[line]
+
 
 		if correctFlag == True:
 			tag = "=RTag"
@@ -215,7 +237,8 @@ class WORDPROCESSING:
 		#print line
 		#print "line matrix after"
 		#print eachLine
-		self.sayFromFile(self.story, eachLine, 'ascii')
+		if REDCardAllert == False:
+			self.sayFromFile(self.story, eachLine, 'ascii')
 
 
 	def readTheTaggedStory(self, correctFlag):
@@ -249,11 +272,24 @@ class WORDPROCESSING:
 		toSay = filename.encode("utf-8")
 		story.post.say(toSay)
 
-	def saveLineWordCount(self, LiWoCount):
+	def saveLineWordCount(self, LiWoCount, lineDistance):
 
-		self.LineWordCount = LiWoCount
+		self.__LineWordCount = LiWoCount
+		print "self.LineWordCount"
+		print self.__LineWordCount
+		self.lineDistanceCoef = lineDistance
+		print "self.lineDistanceCoef"
+		print self.lineDistanceCoef
 
 
 	def getLineWordCount(self):
+		print " get self.LineWordCount"
+		print self.__LineWordCount
+		return self.__LineWordCount
 
-		return self.LineWordCount
+	def getLineDistanceCount(self):
+
+		return self.lineDistanceCoef
+
+	def cleanStory(self):
+		self.selectedStory = []

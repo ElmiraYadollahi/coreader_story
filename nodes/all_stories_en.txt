@@ -39,50 +39,35 @@
 [110, 111]	6=WordNum 4=LineNum 7=L1 7=B1 4=L2 4=B2 3=L3 3=B3 5=L4 5=B4	1=NextLine \\rspd=50\\ And \\pau=500\\ they \\pau=500\\ opened \\pau=500\\ their \\pau=500\\ beaks \\pau=500\\ and \\pau=500\\ said,		2=NextLine \\rspd=50\\ when \\pau=500\\ we \\pau=500\\ fly \\pau=500\\ away,		3=NextLine \\rspd=50\\ which \\pau=500\\ is \\pau=500\\ best,		4=NextLine \\rspd=50\\ North, \\pau=500\\ South, \\pau=500\\ East, \\pau=500\\ or \\pau=500\\ West?
 
 
-[200, 201]	1=WordNum 1=LineNum 1=L1 1=B1			1=NextLine \\rspd=50\\ BOO!
-[202, 203]	13=WordNum 1=LineNum 13=L1 13=B1		1=NextLine \\rspd=50\\ No \\rspd=50\\ one \\rspd=50\\ is \\rspd=50\\ as \\rspd=50\\ brave \\rspd=50\\ as \\rspd=50\\ me \\rspd=50\\ and \\rspd=50\\ nothing \\rspd=50\\ scares \\rspd=50\\ me \\rspd=50\\ you'll \\rspd=50\\ see!
-[204, 205]	1=WordNum 1=LineNum 1=L1 1=B1			1=NextLine \\rspd=50\\ BOO!
-[206, 207]	5=WordNum 3=LineNum 2=L1 2=B1 7=L2 7=B2 10=L3 10=B3	1=NextLine \\rspd=50\\ HOOT \\pau=500\\ HOOT		2=NextLine \\rspd=50\\ Don't \\pau=500\\ listen \\pau=500\\ to \\pau=500\\ that \\pau=500\\ tiny, \\pau=500\\ little \\pau=500\\ mouse!			3=NextLine \\rspd=50\\ I \\pau=500\\ am \\pau=500\\ the \\pau=500\\ wisest \\pau=500\\ and \\pau=500\\ bravest \\pau=500\\ bird \\pau=500\\ in \\pau=500\\ the \\pau=500\\ skies.
-[208, 209]	11=WordNum 1=LineNum 11=L1 11=B1			1=NextLine \\rspd=50\\ Bravery \\pau=500\\ is \\pau=500\\ my \\pau=500\\ middle \\pau=500\\ name \\pau=500\\ and \\pau=500\\ nothing \\pau=500\\ scares \\pau=500\\ me \\pau=500\\ you'll \\pau=500\\ see!
-[210, 211]	1=WordNum 1=LineNum 1=L1 1=B1			1=NextLine \\rspd=50\\ BOO!
-[212, 213]	5=WordNum 4=LineNum 2=L1 2=B1 8=L2 8=B2 8=L3 8=B3 4=L4 4=B4		1=NextLine \\rspd=50\\ HEE \\pau=500\\ HEE!		2=NextLine \\rspd=50\\ That \\pau=500\\ silly, \\pau=500\\ old \\pau=500\\ owl \\pau=500\\ didn't \\pau=500\\ see \\pau=500\\ me \\pau=500\\ coming!		3=NextLine \\rspd=50\\ My \\pau=500\\ dad \\pau=500\\ says \\pau=500\\ I \\pau=500\\ am \\pau=500\\ definitely \\pau=500\\ the \\pau=500\\ funniest		4=NextLine \\rspd=50\\ and \\pau=500\\ bravest \\pau=500\\ animal \\pau=500\\ around
-[214, 215]	8=WordNum 1=LineNum 8=L1 8=B1			1=NextLine \\rspd=50\\ Nothing \\pau=500\\ scares \\pau=500\\ the \\pau=500\\ king \\pau=500\\ of \\pau=500\\ mischief \\pau=500\\ you'll \\pau=500\\ see!
-[216, 217]	1=WordNum 1=LineNum 1=L1 1=B1			1=NextLine \\rspd=50\\ BOO!
-[218, 219]	5=WordNum 4=LineNum 1=L1 1=B1 7=L2 7=B2 7=L3 7=B3 8=L4 8=B4		1=NextLine \\rspd=50\\ PFFT!		2=NextLine \\rspd=50\\ That \\pau=500\\ goofy \\pau=500\\ monkey \\pau=500\\ was \\pau=500\\ gone \\pau=500\\ in \\pau=500\\ a		3=NextLine \\rspd=50\\ snippety \\pau=500\\ snap! \\pau=500\\ Danger \\pau=500\\ is \\pau=500\\ my \\pau=500\\ middle \\pau=500\\ name 		4=NextLine \\rspd=50\\ and \\pau=500\\ I \\pau=500\\ am \\pau=500\\ the \\pau=500\\ bravest \\pau=500\\ animal \\pau=500\\ around \\pau=500\\ here.
-[220, 221]	10=WordNum 1=LineNum 10=L1 10=B1		1=NextLine \\rspd=50\\ With \\pau=500\\ teeth \\pau=500\\ as \\pau=500\\ sharp \\pau=500\\ these, \\pau=500\\ nothing \\pau=500\\ scares \\pau=500\\ me \\pau=500\\ you'll \\pau=500\\ see!
-[222, 223]	1=WordNum 1=LineNum 1=L1 1=B1			1=NextLine \\rspd=50\\ BOO!
-[224, 225]	1=WordNum 3=LineNum 1=L1 1=B1 7=L2 7=B2 9=L3 9=B3	1=NextLine \\rspd=50\\ RAWWWRRRR! \\pau=500\\ That \\pau=500\\ crocodile \\pau=500\\ obviously \\pau=500\\ forgot \\pau=500\\ that \\pau=500\\ I \\pau=500\\ am		2=NextLine \\rspd=50\\ the \\pau=500\\ strongest \\pau=500\\ and \\pau=500\\ bravest \\pau=500\\ animal \\pau=500\\ in \\pau=500\\ all \\pau=500\\ the \\pau=500\\ land.
-[226, 227]	10=WordNum 1=LineNum 10=L1 10=B1		1=NextLine \\rspd=50\\ I \\pau=500\\ know \\pau=500\\ no \\pau=500\\ fear \\pau=500\\ and \\pau=500\\ nothing \\pau=500\\ scares \\pau=500\\ me \\pau=500\\ you'll \\pau=500\\ see!
-[228, 229]	1=WordNum 1=LineNum 1=L1 1=B1			1=NextLine \\rspd=50\\ BOO!
-[230, 231]	5=WordNum 4=LineNum 1=L1 1=B1 10=L2 10=B2 11=L3 11=B3 12=L4 12=B4	1=NextLine \\rspd=50\\ SNORT!		2=NextLine \\rspd=50\\ A \\pau=500\\ mighty \\pau=500\\ tiger? \\pau=500\\ She's \\pau=500\\ a \\pau=500\\ scaredy-cat! \\pau=500\\ I \\pau=500\\ am \\pau=500\\ the \\pau=500\\ biggest		3=NextLine \\rspd=50\\ Absolutely \\pau=500\\ no \\pau=500\\ one \\pau=500\\ is \\pau=500\\ as \\pau=500\\ brave \\pau=500\\ as \\pau=500\\ me \\pau=500\\ and \\pau=500\\ nothing \\pau=500\\ scares \\pau=500\\ me!  
-[232, 233]	1=WordNum 1=LineNum 1=L1 1=B1			1=NextLine \\rspd=50\\ BOO!
 
 
-[2500, 2510]	3=WordNum 1=LineNum 3=L1 3=B1			1=NextLine \\rspd=50\\ lost \\pau=500\\ and \\pau=500\\ found
 
-[2520, 2530]	15=WordNum 1=LineNum 15=L1 15=B1		1=NextLine \\rspd=50\\ once \\pau=500\\ there \\pau=500\\ was \\pau=500\\ a boy \\pau=500\\ and \\pau=500\\ one \\pau=500\\ day \\pau=500\\ he \\pau=500\\ found \\pau=500\\ a penguin \\pau=500\\ at \\pau=500\\ his \\pau=500\\ door.
+[250, 251]	3=WordNum 1=LineNum 3=L1 3=B1 0N=S1		1=NextLine \\rspd=50\\ lost \\pau=200\\ and \\pau=200\\ found
 
-[2540, 2550]	9=WordNum 2=LineNum 9=L1 9=B1 7=L2 7=B2		1=NextLine \\rspd=50\\ The \\pau=500\\ boy \\pau=500\\ didn't \\pau=500\\ know \\pau=500\\ where \\pau=500\\ it \\pau=500\\ had \\pau=500\\ come \\pau=500\\ from		2=NextLine \\rspd=50\\ but \\pau=500\\ it \\pau=500\\ began \\pau=500\\ to \\pau=500\\ follow \\pau=500\\ him \\pau=500\\ everywhere.
+[252, 253]	11=WordNum 1=LineNum 11=L1 11=B1 0N=S1		1=NextLine \\rspd=50\\ once \\pau=200\\ there \\pau=200\\ was \\pau=200\\ a boy=RTag girl=WTag \\pau=100\\ and \\pau=200\\ one day \\pau=100\\ he \\pau=200\\ found \\pau=100\\ a penguin=RTag elephant=WTag\\pau=100\\ at \\pau=200\\ his door.
 
-[2560, 2570]	5=WordNum 2=LineNum 5=L1 5=B1 7=L2 7=B2		1=NextLine \\rspd=50\\ The \\pau=500\\ penguin \\pau=500\\ looked \\pau=500\\ sad \\pau=500\\ and		2=NextLine \\rspd=50\\ the \\pau=500\\ boy \\pau=500\\ thought \\pau=500\\ it \\pau=500\\ must \\pau=500\\ be \\pau=500\\ lost.
+[200, 201]	9=WordNum 2=LineNum 6=L1 6=B1 4P=S1 6=L2 6=B2 4N=S2		1=NextLine \\rspd=50\\ The boy \\pau=100\\ didn't know \\pau=100\\ where \\pau=200\\ it \\pau=200\\ had \\pau=200\\ come from		2=NextLine \\rspd=50\\ but \\pau=200\\ it \\pau=200\\ began \\pau=100\\ to follow \\pau=100\\ him \\pau=100\\ everywhere.
 
-[250, 251]	5=WordNum 2=LineNum 6=L1 6=B1 3=L2 3=B2		1=NextLine \\rspd=50\\ So \\pau=200\\ the boy \\pau=200\\ decided \\pau=200\\ to \\pau=200\\ help \\pau=200\\ the penguin		2=NextLine \\rspd=50\\ find \\pau=200\\ its way \\pau=200\\ home. 
+[ 202, 203]	5=WordNum 2=LineNum 4=L1 4=B1 0P=S1 6=L2 6=B2 2N=S2		1=NextLine \\rspd=50\\ The penguin \\pau=100\\ looked \\pau=200\\ sad=RTag mad=WTag  \\pau=200\\ and		2=NextLine \\rspd=50\\ the boy \\pau=100\\ thought \\pau=200\\ it \\pau=200\\ must \\pau=100\\ be \\pau=200\\ lost.
 
-[260, 261]	5=WordNum 2=LineNum 8=L1 8=B1 7=L2 7=B2		1=NextLine \\rspd=50\\ He \\pau=500\\ checked \\pau=500\\ in \\pau=500\\ the \\pau=500\\ lost \\pau=500\\ and \\pau=500\\ found \\pau=500\\ office. 		2=NextLine \\rspd=50\\ But \\pau=500\\ no \\pau=500\\ one \\pau=500\\ was \\pau=500\\ missing \\pau=500\\ a penguin.
+[204, 205]	5=WordNum 4=LineNum 5=L1 5=B1 10P=S1 3=L2 3=B2 8P=S2 7=L3 7=B3 8N=S3 5=L4 5=B4 10N=S4	1=NextLine \\rspd=50\\ So \\pau=100\\ the boy \\pau=100\\ decided \\pau=100\\ to help \\pau=100\\ the penguin \\pau=100\\		2=NextLine \\rspd=50\\ find \\pau=200\\ its way \\pau=100\\ home. \\pau=100\\ 		3=NextLine \\rspd=50\\ he \\pau=200\\ checked \\pau=100\\ in \\pau=200\\ the lost \\pau=100\\ and \\pau=100\\ found \\pau=200\\ office=RTag house=WTag 		4=NextLine \\rspd=50\\ but \\pau=200\\ no one \\pau=100\\ was \\pau=200\\ missing \\pau=100\\ a penguin.
 
-[262, 263]	5=WordNum 2=LineNum 7=L1 7=B1 5=L2 5=B2		1=NextLine \\rspd=50\\ He \\pau=500\\ asked \\pau=500\\ some \\pau=500\\ birds \\pau=500\\ if \\pau=500\\ they \\pau=500\\ knew			2=NextLine \\rspd=50\\ where \\pau=500\\ the \\pau=500\\ penguin \\pau=500\\ came \\pau=500\\ from.
+[ 206, 207]	5=WordNum 4=LineNum 6=L1 6=B1 10P=S1 3=L2 3=B2 8P=S2 4=L3 4=B3 8N=S3 4=L4 4=B4 10N=S4	1=NextLine \\rspd=50\\ He \\pau=200\\ asked \\pau=100\\ some birds \\pau=100\\ if \\pau=200\\ they \\pau=200\\ knew			2=NextLine \\rspd=50\\ where \\pau=200\\ the penguin \\pau=100\\ came from		3=NextLine \\rspd=50\\ but \\pau=200\\ they \\pau=200\\ ignored=RTag answered=WTag \\pau=200\\ him.		4=NextLine \\rspd=50\\ some birds \\pau=200\\ are \\pau=200\\ like \\pau=200\\ that.
 
-[264, 265]	5=WordNum 2=LineNum 4=L1 4=B1 5=L2 5=B2		1=NextLine \\rspd=50\\ But \\pau=500\\ they \\pau=500\\ ignored \\pau=500\\ him.		2=NextLine \\rspd=50\\ some \\pau=500\\ birds \\pau=500\\ are \\pau=500\\ that.
 
-[266, 267]	5=WordNum 1=LineNum 5=L1 5=B1 			1=NextLine \\rspd=50\\ the \\pau=500\\ boy \\pau=500\\ asked \\pau=500\\ his \\pau=500\\ duck
+[208, 209]	5=WordNum 3=LineNum 4=L1 4=B1 1P=S1 4=L2 4=B2 8N=S2	3=L3 3=B3 10N=S3		1=NextLine \\rspd=50\\ the boy \\pau=100\\ asked \\pau=100\\ his \\pau=200\\ duck=RTag doll=WTag	2=NextLine \\rspd=50\\ but \\pau=100\\ the duck \\pau=100\\ floated \\pau=100\\ away.		3=NextLine \\rspd=50\\ he \\pau=200\\ didn't \\pau=200\\ know.
 
-[268, 269]	5=WordNum 2=LineNum 5=L1 5=B1 3=L2 3=B2		1=NextLine \\rspd=50\\ But \\pau=500\\ the \\pau=500\\ duck \\pau=500\\ floated \\pau=500\\ away.		2=NextLine \\rspd=50\\ he \\pau=500\\ didn't \\pau=500\\ know.
+[ 210, 211]	1=WordNum 3=LineNum 6=L1 6=B1 0P=S1 5=L2 5=B2 2N=S2 5=L3 5=B3 4N=S3		1=NextLine \\rspd=50\\ That \\pau=100\\ night, \\pau=100\\ the boy \\pau=100\\ couldn't \\pau=200\\ sleep=RTag eat=WTag \\pau=100\\ for		2=NextLine \\rspd=50\\ disappointment. \\pau=50\\ he \\pau=100\\ wanted \\pau=100\\ to help \\pau=100\\ the		3=NextLine \\rspd=50\\ penguin \\pau=100\\ but \\pau=100\\ he \\pau=200\\ didn't know \\pau=100\\ how.
 
-[270, 271]	1=WordNum 3=LineNum 7=L1 7=B1 6=L2 6=B2 6=L3 6=B3	1=NextLine \\rspd=50\\ That \\pau=500\\ night, \\pau=500\\ the \\pau=500\\ boy \\pau=500\\ couldn't \\pau=500\\ sleep \\pau=500\\ for		2=NextLine \\rspd=50\\ disappointment. \\pau=500\\ he \\pau=500\\ wanted \\pau=500\\ to \\pau=500\\ help \\pau=500\\ the		3=NextLine \\rspd=50\\ penguin \\pau=500\\ but \\pau=500\\ he \\pau=500\\ didn't \\pau=500\\ know \\pau=500\\ how.
+[212, 213]	1=WordNum 3=LineNum 6=L1 6=B1 0P=S1 4=L2 4=B2 2N=S2 6=L3 6=B3 4N=S3			1=NextLine \\rspd=50\\ The \\pau=100\\ next \\pau=100\\ morning=RTag evening=WTag \\pau=200\\ he \\pau=200\\ discovered \\pau=100\\ that			2=NextLine \\rspd=50\\ penguins \\pau=100\\ come \\pau=100\\ from \\pau=50\\ the south=RTag north=WTag pole.		3=NextLine \\rspd=50\\ but \\pau=100\\ how \\pau=100\\ could \\pau=200\\ he \\pau=200\\ get \\pau=200\\ there? 
 
-[272, 273]	1=WordNum 3=LineNum 6=L1 6=B1 6=L2 6=B2 6=L3 6=B3	1=NextLine \\rspd=50\\ The \\pau=500\\ next \\pau=500\\ morning \\pau=500\\ he \\pau=500\\ discovered \\pau=500\\ that			2=NextLine \\rspd=50\\ penguins \\pau=500\\ come \\pau=500\\ from \\pau=500\\ the \\pau=500\\ south \\pau=500\\ pole.		3=NextLine \\rspd=50\\ But \\pau=500\\ how \\pau=500\\ could \\pau=500\\ he \\pau=500\\ get \\pau=500\\ there? 
+[ 214, 215]	1=WordNum 4=LineNum 8=L1 8=B1 0P=S1 7=L2 7=B2 2N=S2 7=L3 7=B3 4N=S3	6=L4 6=B4 6N=S4		1=NextLine \\rspd=50\\ He \\pau=200\\ ran \\pau=100\\ down \\pau=100\\ to \\pau=200\\ the harbour=RTag barber=WTag \\pau=100\\ and \\pau=100\\ asked \\pau=100\\ a		2=NextLine \\rspd=50\\ big \\pau=100\\ ship \\pau=200\\ to \\pau=100\\ take \\pau=100\\ them \\pau=100\\ to \\pau=50\\ the  south  pole.	3=NextLine \\rspd=50\\ but \\pau=100\\ his voice \\pau=100\\ was \\pau=100\\ much \\pau=100\\ too \\pau=100\\ small=RTag big=WTag	\\pau=100\\ to 		4=NextLine \\rspd=50\\ be \\pau=100\\ heard \\pau=100\\ over \\pau=100\\ the \\pau=100\\ ship's \\pau=100\\ horn.
 
-[274, 275]	1=WordNum 4=LineNum 9=L1 9=B1 9=L2 9=B2 8=L3 8=B3 6=L4 6=B4		1=NextLine \\rspd=50\\ He \\pau=500\\ ran \\pau=500\\ down \\pau=500\\ to \\pau=500\\ the \\pau=500\\ harbour \\pau=500\\ and \\pau=500\\ asked \\pau=500\\ a		2=NextLine \\rspd=50\\ big \\pau=500\\ ship \\pau=500\\ to \\pau=500\\ take \\pau=500\\ them \\pau=500\\ to \\pau=500\\ the \\pau=500\\ south \\pau=500\\ pole.			4=NextLine \\rspd=50\\ be \\pau=500\\ heard \\pau=500\\ over \\pau=500\\ the \\pau=500\\ ship's \\pau=500\\ horn.
+[270, 271]	
+
+[272, 273]	
+
+[274, 275]	
 
 [276, 277]	1=WordNum 4=LineNum 9=L1 9=B1 9=L2 9=B2 8=L3 8=B3 6=L4 6=B4		1=NextLine \\rspd=50\\ So \\pau=500\\ together, \\pau=500\\ he \\pau=500\\ and \\pau=500\\ the \\pau=500\\ penguin \\pau=500\\ would \\pau=500\\ row		2=NextLine \\rspd=50\\ to \\pau=500\\ the \\pau=500\\ south \\pau=500\\ pole. \\pau=500\\ The \\pau=500\\ boy \\pau=500\\ took \\pau=500\\ his \\pau=500\\ rowboat		3=NextLine \\rspd=50\\ out of \\rspd=50\\ the cupboard \\rspd=50\\ and \\rspd=50\\ they \\rspd=50\\ tested \\rspd=50\\ it \\rspd=50\\ for 		4=NextLine \\rspd=50\\ size \\rspd=50\\ and \\rspd=50\\ strength.
 

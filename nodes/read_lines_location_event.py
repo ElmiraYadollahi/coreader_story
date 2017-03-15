@@ -73,7 +73,12 @@ pairs_dict = {	'[0, 1]' : False,
 				'[20, 21]' : False,
 				'[250, 251]' : False,
 				'[252, 253]' : False,
-				'[254, 255]' : False,
+				'[200, 201, 202, 203]' : False,
+				'[204, 205, 206, 207]' : False,
+				'[208, 209, 210, 211]' : False,
+				'[212, 213, 214, 215]' : False,
+				'[216, 217, 218, 219]' : False,
+				'[220, 221, 222, 223]' : False,
 				'[256, 257]' : False,
 				'[258, 259]' : False,
 				'[260, 261]' : False,
@@ -169,8 +174,6 @@ tag_pairs = '[0, 0]'
 global moveHand 
 moveHand = 0
 global selectedStory
-global mainPoints
-mainPoints = []
 global trajComplete
 trajComplete = []
 global correctPermission
@@ -179,6 +182,9 @@ global cardPosition
 cardPosition = 0
 global reactionPermission 
 reactionPermission = False
+global ARTag
+global REDCardAllert
+REDCardAllert = False
 
 class MOTION_ANIMATION_SELECTION:
 	def __init__(self):
@@ -318,7 +324,7 @@ def cardPointedAt(msg):
 	if cardPosition == 10:
 
 		cameraName = 'CameraBottom'
-		changeCoordinate = TRANSFORMATION(motionProxy)
+		#changeCoordinate = TRANSFORMATION(motionProxy)
 		#pointedWord = Pose()
 		#pointedWord.position = msg.position
 		PW = []
@@ -327,17 +333,17 @@ def cardPointedAt(msg):
 		PW.append([msg.position.z])
 		PW.append([1])
 
-		P1 = changeCoordinate.transformPoint(PW, cameraName)
+		#P1 = changeCoordinate.transformPoint(PW, cameraName)
 		print "P1"
-		print P1
+		#print P1
 
 
 
-def getTagLocations(msg, wordProc):
+def getTagLocations(msg):
 	
 	global trajComplete
 	#trajComplete = [1]
-
+	global ARTag
 	changeCoordinate = TRANSFORMATION(motionProxy)
 	global moveHand
 	moveHand += 1
@@ -347,7 +353,6 @@ def getTagLocations(msg, wordProc):
 	#wordProc = WORDPROCESSING(ARTag)
 
 
-
 	if moveHand == 1:
 
 		if(effector == "LArm"):
@@ -355,45 +360,97 @@ def getTagLocations(msg, wordProc):
 		else:
 			motionProxy.openHand("RHand")
 
-		P1 = []
-		P1.append([msg.poses[0].position.x])
-		P1.append([msg.poses[0].position.y])
-		P1.append([msg.poses[0].position.z])
-		P1.append([1])
-		P2 = []
-		P2.append([msg.poses[1].position.x])
-		P2.append([msg.poses[1].position.y])
-		P2.append([msg.poses[1].position.z])
-		P2.append([1])
+		if len(ARTag) == 1:
+			P1 = []
+			P1.append([msg.poses[0].position.x])
+			P1.append([msg.poses[0].position.y])
+			P1.append([msg.poses[0].position.z])
+			P1.append([1])
+			P2 = []
+			P2.append([msg.poses[1].position.x])
+			P2.append([msg.poses[1].position.y])
+			P2.append([msg.poses[1].position.z])
+			P2.append([1])
 
-		
-		#pointsAB.append(P1)
-		#pointsAB.append(P2)
+			
+			#pointsAB.append(P1)
+			#pointsAB.append(P2)
 
-		""" Transformation Matrix"""
-		#tranAC = changeCoordinate.transformMatrix(cameraName)
-		newP1 = changeCoordinate.transformPoint(P1, cameraName)
-		newP2 = changeCoordinate.transformPoint(P2, cameraName)
+			""" Transformation Matrix"""
+			#tranAC = changeCoordinate.transformMatrix(cameraName)
+			newP1 = changeCoordinate.transformPoint(P1, cameraName)
+			newP2 = changeCoordinate.transformPoint(P2, cameraName)
 
-		#oldPoint = np.matrix(pointsAB[0])
-		#newPoint1 = np.dot(tranAC, oldPoint) 
+			#oldPoint = np.matrix(pointsAB[0])
+			#newPoint1 = np.dot(tranAC, oldPoint) 
 
-		#oldPoint = np.matrix(pointsAB[1])
-		#newPoint2 = np.dot(tranAC, oldPoint)
+			#oldPoint = np.matrix(pointsAB[1])
+			#newPoint2 = np.dot(tranAC, oldPoint)
 
-		""" to make sure the robot's hand move from left to write
-			start from the tag located in the left toward the one in the right
-			compare their y value
-		"""
-		pointsAB = []
-		if newP1[1] >= newP2[1]:
+			""" to make sure the robot's hand move from left to write
+				start from the tag located in the left toward the one in the right
+				compare their y value
+			"""
+			pointsAB = []
+			if newP1[1] >= newP2[1]:
+				pointsAB.append(newP1)
+				pointsAB.append(newP2)
+			else:
+				pointsAB.append(newP2)
+				pointsAB.append(newP1)
+
+		elif len(ARTag) == 2:
+			P1 = []
+			P1.append([msg.poses[0].position.x])
+			P1.append([msg.poses[0].position.y])
+			P1.append([msg.poses[0].position.z])
+			P1.append([1])
+			P2 = []
+			P2.append([msg.poses[1].position.x])
+			P2.append([msg.poses[1].position.y])
+			P2.append([msg.poses[1].position.z])
+			P2.append([1])
+			P3 = []
+			P3.append([msg.poses[2].position.x])
+			P3.append([msg.poses[2].position.y])
+			P3.append([msg.poses[2].position.z])
+			P3.append([1])
+			P4 = []
+			P4.append([msg.poses[3].position.x])
+			P4.append([msg.poses[3].position.y])
+			P4.append([msg.poses[3].position.z])
+			P4.append([1])
+
+			
+			#pointsAB.append(P1)
+			#pointsAB.append(P2)
+
+			""" Transformation Matrix"""
+			#tranAC = changeCoordinate.transformMatrix(cameraName)
+			newP1 = changeCoordinate.transformPoint(P1, cameraName)
+			newP2 = changeCoordinate.transformPoint(P2, cameraName)
+			newP3 = changeCoordinate.transformPoint(P3, cameraName)
+			newP4 = changeCoordinate.transformPoint(P4, cameraName)
+
+			#oldPoint = np.matrix(pointsAB[0])
+			#newPoint1 = np.dot(tranAC, oldPoint) 
+
+			#oldPoint = np.matrix(pointsAB[1])
+			#newPoint2 = np.dot(tranAC, oldPoint)
+
+			""" to make sure the robot's hand move from left to write
+				start from the tag located in the left toward the one in the right
+				compare their y value
+			"""
+			pointsAB = []
 			pointsAB.append(newP1)
 			pointsAB.append(newP2)
-		else:
-			pointsAB.append(newP2)
-			pointsAB.append(newP1)
+			pointsAB.append(newP3)
+			pointsAB.append(newP4)
+			
 
-		calculateWhereToPointAt(pointsAB, effector, space, wordProc)
+
+		calculateWhereToPointAt(pointsAB, effector, space, changeCoordinate)
 
 		time.sleep(2)
 		postureProxy.goToPosture("Crouch", 0.5)
@@ -403,67 +460,148 @@ def getTagLocations(msg, wordProc):
 
 
 
-def calculateWhereToPointAt( pointsAB, effector, frame, wordProc):
+def calculateWhereToPointAt( pointsAB, effector, frame, changeCoordinate):
 
 	global correctPermission
 	global selectedStory
-	global mainPoints
 	global trajComplete
+	global story
 	trajComplete = []
+	global ARTag
+	print "ARTag" 
+	print ARTag
+	global REDCardAllert
+	global reactionPermission
 
-	changeCoordinate = TRANSFORMATION( motionProxy)
-	#wordProc = WORDPROCESSING()
-	LiWoCount = wordProc.getLineWordCount()
+	for j in range(len(ARTag)):
+		print j 
+		wordProc = WORDPROCESSING(story, ARTag[j])
 
-	PA = Pose()
-	PB = Pose()
+		INTag = "=WordNum"
+		wordCount = wordProc.getTheInstructionTagData(INTag)
+		INTag = "=LineNum"
+		lineCount = wordProc.getTheInstructionTagData(INTag)
+		LiWoCount = []
+		lineDistanceCoef = []
+		#if lineCount > 1:
+		for i in range(lineCount):
+			INTag = "=L" + str((i+1))
+			LiWoCount.append(wordProc.getTheInstructionTagData(INTag))
 
-	PA.position.x = pointsAB[0].item(0, 0)
-	PA.position.y = pointsAB[0].item(1, 0)
-	PA.position.z = pointsAB[0].item(2, 0)
+			INTag = "=S" + str((i+1))
+			lineDistanceCoef.append(0.01 * wordProc.getTheInstructionTagData(INTag))
 
-	PB.position.x = pointsAB[1].item(0, 0)
-	PB.position.y = pointsAB[1].item(1, 0)
-	PB.position.z = pointsAB[1].item(2, 0)
-
-	maxSpeed = 0.1
-	maxSpeedHead = 0.05
-	useWholeBody = False
-
-	trajComplete2 = []
-
-
-			
-	trajComplete2 = changeCoordinate.calculateEachWordPosition(PA, PB, effector, trajComplete, mainPoints, LiWoCount)
-
-	print "len trajComplete2"
-	print len(trajComplete2)
-	#wordProc.readTheTaggedStory(correctPermission)
-	for i in range(len(trajComplete2)):
-
-		for j in range(len(trajComplete2[i][0])):
-	
-			tracker.lookAt(trajComplete2[i][0][j], frame, maxSpeed, useWholeBody)
-			tracker.pointAt(effector, trajComplete2[i][0][j], frame, maxSpeedHead)
-
-			if j == 0:
-				wordProc.readFromMatrixLine(correctPermission, i+1)
-				print "correct permission"
-				print correctPermission
-				x = True
-			if (j ) %4 == 0:
+		#elif lineCount == 1:
+			#LiWoCount.append(wordCount)
 		
-				time.sleep(0.2)
+		print LiWoCount
+		print lineDistanceCoef
 
-	# Empty the arrays
-	trajComplete = []
-	mainPoints = []
+		print "lineCount"
+		print lineCount
 
 
-def readAndMoveInstruction( cameraName, handMovePermission, ARTag):
+		wordProc.getTheLineMatrix()
+		#wordCount = wordProc.getTheWordCount()
+		wordProc.clearAllTheInstructionTags()
+
+		#changeCoordinate = TRANSFORMATION( motionProxy)
+		#wordProc = WORDPROCESSING()
+		print "LiWoCount = wordProc.getLineWordCount()"
+		print LiWoCount
+		print "pointsAB"
+		print pointsAB
+
+		maxSpeed = 0.1
+		maxSpeedHead = 0.05
+		useWholeBody = False
+
+		trajComplete2 = []
+
+		PA = Pose()
+		PB = Pose()
+		PC = Pose()
+		PD = Pose()
+		
+		PA.position.x = pointsAB[2*j].item(0, 0)
+		PA.position.y = pointsAB[2*j].item(1, 0)
+		PA.position.z = pointsAB[2*j].item(2, 0)
+
+		PB.position.x = pointsAB[2*j+1].item(0, 0)
+		PB.position.y = pointsAB[2*j+1].item(1, 0)
+		PB.position.z = pointsAB[2*j+1].item(2, 0)
+		trajComplete2 = changeCoordinate.calculateEachWordPosition(PA, PB, effector, LiWoCount, lineDistanceCoef)
+
+
+
+		print "PA"
+		print PA
+		print "PB"
+		print PB
+		print "PC"
+		print PC
+		print "PD"
+		print PD
+
+
+		print "len trajComplete2"
+		print len(trajComplete2)
+		#wordProc.readTheTaggedStory(correctPermission)
+		for i in range(len(trajComplete2)):
+
+			for j in range(len(trajComplete2[i][0])):
+				if REDCardAllert == True:
+					break
+		
+				tracker.lookAt(trajComplete2[i][0][j], frame, maxSpeed, useWholeBody)
+				tracker.pointAt(effector, trajComplete2[i][0][j], frame, maxSpeedHead)
+
+				if j == 0:
+					if REDCardAllert == True:
+						break
+					wordProc.readFromMatrixLine(correctPermission, i+1, REDCardAllert)
+					print "correct permission"
+					print correctPermission
+					x = True
+					if REDCardAllert == True:
+						break
+				if (j ) %4 == 0:
+			
+					time.sleep(0.2)
+
+			if REDCardAllert == True:
+				break
+
+
+		time.sleep(1)
+		# Empty the arrays
+		trajComplete2 = []
+		wordProc.cleanStory()
+		changeCoordinate.clearCoordinate()
+		reactionPermission = True
+
+
+def readAndMoveInstruction( cameraName, handMovePermission, detected_tag):
 
 	global reactionPermission
-	wordProc = WORDPROCESSING(story, ARTag)
+	global ARTag
+	ARTag = []
+	ARRec = detected_tag
+	ARRec = ARRec.replace('[', '').replace(']', '')
+	foundAR = re.split(",", ARRec)
+	print foundAR
+	if len(foundAR) == 2:
+		tagNum = 2
+		ARTag.append(foundAR[0] +","+foundAR[1])
+
+	elif len(foundAR) == 4:
+		tagNum = 4
+		ARTag.append(foundAR[0] +","+foundAR[1])
+		ARTag.append(foundAR[2] +","+foundAR[3])
+	print "tagNum"
+	print tagNum
+	print ARTag
+	#wordProc = WORDPROCESSING(story, ARTag)
 	motionProxy.setBreathEnabled('Arms', False)
 	#motionProxy.setBreathEnabled('Head', False)
 	#wordProc.readTheTaggedStory(selectedStory, correctPermission)
@@ -471,30 +609,38 @@ def readAndMoveInstruction( cameraName, handMovePermission, ARTag):
 		reactionPermission = False
 
 
-		INTag = "=WordNum"
+		"""INTag = "=WordNum"
 		wordCount = wordProc.getTheInstructionTagData(INTag)
 		INTag = "=LineNum"
 		lineCount = wordProc.getTheInstructionTagData(INTag)
 		LiWoCount = []
-		if lineCount > 1:
-			for i in range(lineCount):
-				INTag = "=L" + str((i+1))
-				LiWoCount.append(wordProc.getTheInstructionTagData(INTag))
-		elif lineCount == 1:
-			LiWoCount.append(wordCount)
+		lineDistanceCoef = []
+		#if lineCount > 1:
+		for i in range(lineCount):
+			INTag = "=L" + str((i+1))
+			LiWoCount.append(wordProc.getTheInstructionTagData(INTag))
+
+			INTag = "=S" + str((i+1))
+			lineDistanceCoef.append(0.01 * wordProc.getTheInstructionTagData(INTag))
+
+		#elif lineCount == 1:
+			#LiWoCount.append(wordCount)
 		
 		print LiWoCount
+		print lineDistanceCoef
 
 		print "lineCount"
 		print lineCount
 
-		wordProc.saveLineWordCount(LiWoCount)
+		wordProc.saveLineWordCount(LiWoCount, lineDistanceCoef)
+		LiWoCount = wordProc.getLineWordCount()
+		print LiWoCount
 
 		wordProc.getTheLineMatrix()
 		#wordCount = wordProc.getTheWordCount()
-		wordProc.clearAllTheInstructionTags()
+		wordProc.clearAllTheInstructionTags()"""
 
-		rospy.Subscriber("target_pose", PoseArray, getTagLocations, wordProc)
+		rospy.Subscriber("target_pose", PoseArray, getTagLocations)
 
 		#motionProxy.setBreathEnabled('Arms', True)
 
@@ -510,13 +656,13 @@ def tagDetection(msg):
 	global moveHand
 	global correctPermission
 	global reactionPermission
+	global REDCardAllert
 	animationSelection = MOTION_ANIMATION_SELECTION()
 	# initializing classes
 	
 	#global selectedStory
 
-	ARTag = msg.data
-	ARTag = ARTag.replace('[', '').replace(']', '')
+
 	#wordProc = WORDPROCESSING(ARTag)
 	#print "tag"
 	#print tag
@@ -529,6 +675,7 @@ def tagDetection(msg):
 	pitch_angle = 0.2
 	global counter
 	if counter == 0:
+		yaw_angle = 0.4
 		LookAtTheBook(pitch_angle)
 		counter = 1
 
@@ -581,8 +728,9 @@ def tagDetection(msg):
 		print "False added"
 		correctPermission = False
 		handMovePermission = True
-		readAndMoveInstruction(cameraName, handMovePermission, ARTag)
+		readAndMoveInstruction(cameraName, handMovePermission, msg.data)
 		reactionPermission = True
+		REDCardAllert = False
 		# story.say(selectedStory)
 		pairs_dict[msg.data] = "Waiting for Red-card"
 
@@ -599,7 +747,8 @@ def tagDetection(msg):
 			print "Correcting Mode added"
 			correctPermission = True
 			handMovePermission = True
-			readAndMoveInstruction(cameraName, handMovePermission, ARTag)
+			REDCardAllert = False
+			readAndMoveInstruction(cameraName, handMovePermission, msg.data)
 		#wordProc.readTheTaggedStory(selectedStory, True)
 		#pairs_dict[msg.data] = True
 		pairs_dict[msg.data] = "Waiting for Green-card"
@@ -623,7 +772,8 @@ def tagDetection(msg):
 		print "corrected Mode added"
 		correctPermission = True
 		handMovePermission = True
-		readAndMoveInstruction(cameraName, handMovePermission, ARTag)
+		REDCardAllert = False
+		readAndMoveInstruction(cameraName, handMovePermission, msg.data)
 		#pairs_dict[msg.data] = True
 		pairs_dict[msg.data] = "Waiting for Green-card"
 
@@ -635,7 +785,8 @@ def tagDetection(msg):
 		print "Repeat Correct Mode added"
 		correctPermission = True
 		handMovePermission = True
-		readAndMoveInstruction(cameraName, handMovePermission, ARTag)
+		REDCardAllert = False
+		readAndMoveInstruction(cameraName, handMovePermission, msg.data)
 		pairs_dict[msg.data] = "Repeated Correct Mode"
 
 
@@ -646,7 +797,8 @@ def tagDetection(msg):
 		print "Repeat Wrong Mode added"
 		correctPermission = False
 		handMovePermission = True
-		readAndMoveInstruction( cameraName, handMovePermission, ARTag)
+		REDCardAllert = False
+		readAndMoveInstruction( cameraName, handMovePermission, msg.data)
 		pairs_dict[msg.data] = "Repeated Wrong Mode"
 
 
@@ -664,6 +816,7 @@ def tagDetection(msg):
 
 def cardDetection(msg, tag):
 	global cardPosition
+	global REDCardAllert
 
 	red_card = "40"
 	green_card = "39"
@@ -675,6 +828,7 @@ def cardDetection(msg, tag):
 	if card_id == red_card:
 		if pairs_dict[tag] == "Waiting for Red-card":
 			pairs_dict[tag] = "Correcting Mode"
+			REDCardAllert = True
 			#reac = 2
 			#motionProxySelection(reac)
 
@@ -703,7 +857,7 @@ def cardDetection(msg, tag):
 
 	cardPosition = 0
 
-	rospy.Subscriber('card_pose', Pose, cardPointedAt)
+	#rospy.Subscriber('card_pose', Pose, cardPointedAt)
 
 			
 
@@ -857,8 +1011,8 @@ def IntroduceNao():
 	time.sleep(1)
 	#story.say("\\rspd=90\\ If you want to read with me, please bring the book")
 	story.say("\\rspd=90\\ Hello")
-	#pitch_angle = 0.1
-	#LookAtTheBook(pitch_angle)
+	pitch_angle = 0.2
+	LookAtTheBook(pitch_angle)
 	time.sleep(2)
 
 
@@ -915,11 +1069,12 @@ def main():
 
 	#rospy.Subscriber('tag_id_state', String, IntroduceNao)
 	faceTrackingEnded()
-	pitch_angle = 0.8
+	pitch_angle = 0.1
+	yaw_angle = 0.8
 	LookAtTheBook(pitch_angle)
 	
 	global effector
-	effector = "RArm"
+	effector = "LArm"
 
 	
 

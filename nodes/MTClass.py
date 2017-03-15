@@ -73,10 +73,18 @@ class TRANSFORMATION:
 		return newP
 
 
-	def calculateEachWordPosition(self, PA, PB, effector, trajComplete, mainPoints, LiWoCount):
+	def calculateEachWordPosition(self, PA, PB, effector, LiWoCount, lineDistanceCoef):
 		"""
 
 		"""
+		print "PA"
+		#print PA
+		print "PB"
+		#print PB
+		print "LiWoCount"
+		print LiWoCount
+		print "lineDistanceCoef"
+		print lineDistanceCoef
 		trajComplete2 = []
 		for i in range(len(LiWoCount)):
 			mainPoints = []
@@ -92,7 +100,7 @@ class TRANSFORMATION:
 			print self.pointsMatrix
 
 			trajComplete = []
-			trajComplete = self.calculateTrajectory(effector, mainPoints, LiWoCount[i], i+1)
+			trajComplete = self.calculateTrajectory(effector, mainPoints, LiWoCount[i], i+1, lineDistanceCoef)
 
 			
 			print "trajComplete"
@@ -130,16 +138,22 @@ class TRANSFORMATION:
 
 
 
-	def calculateTrajectory(self, effector, mainPoints, wordCount, lineNum=1):
+	def calculateTrajectory(self, effector, mainPoints, wordCount, lineNum=1, lineDistanceCoef=0.03):
 		""" Calculate the main trajectory for the robot to point at
 
 		"""
 			
 
 		""" Calculate the correction values to be added to the original points for increasing the pointing accuracy"""
+		print "lineDistanceCoef"
+		print lineDistanceCoef
 		trajComplete = []
-		dx_corr = 0.1 - (0.03 * (lineNum - 1))
-		dz_corr = 0.1
+		#if len(lineDistanceCoef) >= 1:
+		dx_corr = 0.1 + (lineDistanceCoef[lineNum-1] )
+		#else:
+			#dx_corr = 0.1 
+		dz_corr = 0.1 + (lineDistanceCoef[lineNum-1] )
+
 
 		if wordCount > 1:
 			# The distance between the main points
@@ -181,9 +195,15 @@ class TRANSFORMATION:
 				trajMidP.append(trajMainP[2] + ((8/3) * dy))
 
 				trajComplete.append(trajMidP)	
-
+		
+		print "trajComplete[i]"
+		
 		for i in range(len(trajComplete)):
 				print trajComplete[i],
 				print ''
 
 		return trajComplete
+
+
+	def clearCoordinate(self):
+		self.pointsMatrix = []
