@@ -35,7 +35,7 @@ import random
 
 # Debug
 import rospy
-from memory.msg import Animation
+#from memory.msg import Animation
 
 import sys
 import motion
@@ -739,7 +739,7 @@ def tagDetection(msg):
 	elif pairs_dict[msg.data] == "Correcting Mode":
 		
 		
-		#motionProxy.setBreathEnabled('Arms', False)
+		motionProxy.setBreathEnabled('Arms', False)
 		#motionProxy.setBreathEnabled('Head', False)
 		if reactionPermission == True:
 			animationSelection.reactionToREDCard()
@@ -758,7 +758,7 @@ def tagDetection(msg):
 	elif pairs_dict[msg.data] == "Happy Mode":
 		pairs_dict[msg.data] = True
 		print "Happy Mode added"
-		#motionProxy.setBreathEnabled('Arms', False)
+		motionProxy.setBreathEnabled('Arms', False)
 		#motionProxy.setBreathEnabled('Head', False)
 		if reactionPermission == True:
 			animationSelection.reactionToGREENCard()
@@ -1005,12 +1005,12 @@ def IntroduceNao():
 
 
 	story.setLanguage('English')
-	#story.say("\\rspd=90\\ Hello \\pau=500\\ My name is nao \\pau=500\\ I really like reading short stories")
-	#story.say("\\rspd=90\\ Do you want to listen to them?")
-	#story.say("\\rspd=90\\ sometimes I make mistakes, can you help me to correct them?")
+	story.say("\\rspd=90\\ Hello \\pau=500\\ My name is nao \\pau=500\\ I really like reading short stories")
+	story.say("\\rspd=90\\ Do you want to listen to them?")
+	story.say("\\rspd=90\\ sometimes I make mistakes, can you help me to correct them?")
 	time.sleep(1)
 	#story.say("\\rspd=90\\ If you want to read with me, please bring the book")
-	story.say("\\rspd=90\\ Hello")
+	#story.say("\\rspd=90\\ Hello")
 	pitch_angle = 0.2
 	LookAtTheBook(pitch_angle)
 	time.sleep(2)

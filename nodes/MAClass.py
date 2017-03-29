@@ -35,7 +35,7 @@ import random
 
 # Debug
 import rospy
-from memory.msg import Animation
+#from memory.msg import Animation
 
 import sys
 import motion
